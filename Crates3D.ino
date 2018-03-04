@@ -1,10 +1,10 @@
 // Crates 3D. A port of the TI-83 calculator puzzle game.
 // Ion version by Badja. Arduboy port by Brian Smith.
-#include "Arduboy.h"
+#include "Arduboy2.h"
 #include "c3dstd.h"
 #include "title.h"
 #include "blocks.h"
-Arduboy arduboy;
+Arduboy2 arduboy;
 
 #define ALLOW_SAVE 1 // Allow progress save to EEPROM? 1=yes, 0=no
 
@@ -55,26 +55,26 @@ void read_map(int stop_level)
 //------------------------------------------------------------------
 void load()
 {
-  int i;
-
-  for (i=0; i<768; i++) map3d[i]=EEPROM.read(i+150);
-  start_x=EEPROM.read(918); start_y=EEPROM.read(919); start_z=EEPROM.read(920);
-  end_x=EEPROM.read(921); end_y=EEPROM.read(922); end_z=EEPROM.read(923); 
+//  int i;
+//
+//  for (i=0; i<768; i++) map3d[i]=EEPROM.read(i+150);
+//  start_x=EEPROM.read(918); start_y=EEPROM.read(919); start_z=EEPROM.read(920);
+//  end_x=EEPROM.read(921); end_y=EEPROM.read(922); end_z=EEPROM.read(923); 
 }
 
 //-----------------------------------------------------------------
 void save()
 {
-  int i;
-
-  print(0,8,"SAVING......."); arduboy.display();
-        
-  for (i=0; i<768; i++) EEPROM.write(i+150,map3d[i]);
-  EEPROM.write(918,x); EEPROM.write(919,y); EEPROM.write(920,z);
-  EEPROM.write(921,end_x); EEPROM.write(922,end_y); EEPROM.write(923,end_z);
-  print(0,8,"Saved to level 0."); arduboy.display();
-  angle--; if (angle<0) angle=3;
-  delay(1000);
+//  int i;
+//
+//  print(0,8,"SAVING......."); arduboy.display();
+//        
+//  for (i=0; i<768; i++) EEPROM.write(i+150,map3d[i]);
+//  EEPROM.write(918,x); EEPROM.write(919,y); EEPROM.write(920,z);
+//  EEPROM.write(921,end_x); EEPROM.write(922,end_y); EEPROM.write(923,end_z);
+//  print(0,8,"Saved to level 0."); arduboy.display();
+//  angle--; if (angle<0) angle=3;
+//  delay(1000);
 }
 
 //------------------------------------------------------------
