@@ -160,6 +160,7 @@ void draw_map(int xmap, int ymap, int zuser, int angle)
   else {arduboy.drawChar(0,0,level/10+'0',0,1,1); arduboy.drawChar(6,0,level%10+'0',0,1,1);}
 
   arduboy.display();
+  arduboy.waitDisplayUpdate();
 }
 
 //----------------------------------------------------------------------
@@ -263,6 +264,7 @@ void title_screen()
     print(2,16,"A=Rotate");
     print(2,24,"B=Push");
     arduboy.display();
+    arduboy.waitDisplayUpdate();
 
     if (arduboy.pressed(LEFT_BUTTON) && level>0) {level--; while(arduboy.pressed(LEFT_BUTTON));}
     if (arduboy.pressed(RIGHT_BUTTON) && level<16) {level++; while(arduboy.pressed(RIGHT_BUTTON));}
