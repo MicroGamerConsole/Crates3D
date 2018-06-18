@@ -1,12 +1,12 @@
 // Crates 3D. A port of the TI-83 calculator puzzle game.
 // Ion version by Badja. Arduboy port by Brian Smith.
-#include "Arduboy2.h"
+#include "MicroGamer.h"
 #include <MicroGamerMemoryCard.h>
 #include "c3dstd.h"
 #include "title.h"
 #include "blocks.h"
 
-Arduboy2 arduboy;
+MicroGamer arduboy;
 MicroGamerMemoryCard mem(256);
 
 #define ALLOW_SAVE 1 // Allow progress save to EEPROM? 1=yes, 0=no
