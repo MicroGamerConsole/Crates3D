@@ -169,7 +169,7 @@ int read_keys() {
  if (arduboy.pressed(DOWN_BUTTON)) return(3);
  if (arduboy.pressed(LEFT_BUTTON)) return(2);
  if (arduboy.pressed(RIGHT_BUTTON)) return(4);
- if (arduboy.pressed(A_BUTTON)) return(5);
+ if (arduboy.pressed(Y_BUTTON)) return(5);
  return(0);
 }
 
@@ -220,22 +220,22 @@ void move(int dir)
   // check if 'B' key being pressed also....
 
   if (dir==0) {
-     if (arduboy.pressed(B_BUTTON) && check_block(x,y+1,z) && !check_block(x,y+2,z) &&
+     if (arduboy.pressed(X_BUTTON) && check_block(x,y+1,z) && !check_block(x,y+2,z) &&
          check_block(x,y+1,z-1) && y<22) {move_block(x,y+1,z,x,y+2); y++;}
      else if (check_move(x,y+1,z)) y++;
   }
   if (dir==1) {
-     if (arduboy.pressed(B_BUTTON) && check_block(x+1,y,z) && !check_block(x+2,y,z) &&
+     if (arduboy.pressed(X_BUTTON) && check_block(x+1,y,z) && !check_block(x+2,y,z) &&
          check_block(x+1,y,z-1) && x<30) {move_block(x+1,y,z,x+2,y); x++;}
      else if (check_move(x+1,y,z)) x++;
   }
   if (dir==2) {
-     if (arduboy.pressed(B_BUTTON) && check_block(x,y-1,z) && !check_block(x,y-2,z) &&
+     if (arduboy.pressed(X_BUTTON) && check_block(x,y-1,z) && !check_block(x,y-2,z) &&
         check_block(x,y-1,z-1) && y>1) {move_block(x,y-1,z,x,y-2); y--;}
      else if (check_move(x,y-1,z)) y--;
   }
   if (dir==3) {
-     if (arduboy.pressed(B_BUTTON) && check_block(x-1,y,z) && !check_block(x-2,y,z) &&
+     if (arduboy.pressed(X_BUTTON) && check_block(x-1,y,z) && !check_block(x-2,y,z) &&
          check_block(x-1,y,z-1) && x>1) {move_block(x-1,y,z,x-2,y); x--;}
      else if (check_move(x-1,y,z)) x--;
   }
@@ -255,14 +255,14 @@ void title_screen()
   end_z=100;
   for (i=0; i<768; i++) map3d[i]=pgm_read_byte(title+i);
   draw_map(15,7,20,2);
-  while(arduboy.notPressed(B_BUTTON)) {
+  while(arduboy.notPressed(X_BUTTON)) {
     print(0,0," Level: ");
     if (level<10) {arduboy.drawChar(42,0,level+'0',0,1,1); arduboy.drawChar(48,0,32,0,1,1);}
     else {arduboy.drawChar(42,0,level/10+'0',0,1,1); arduboy.drawChar(48,0,level%10+'0',0,1,1);}
 
-    print(2,8,"Hold-A=Quit");
-    print(2,16,"A=Rotate");
-    print(2,24,"B=Push");
+    print(2,8,"Hold-X=Quit");
+    print(2,16,"X=Rotate");
+    print(2,24,"Y=Push");
     arduboy.display();
     arduboy.waitDisplayUpdate();
 
@@ -285,17 +285,17 @@ int gameloop() {
       draw_map(x,y,z,angle);
       k=read_keys();
       while(!k) {first=1; delay(10); k=read_keys();} // idle loop
-      if (ALLOW_SAVE && arduboy.pressed(A_BUTTON) && arduboy.pressed(B_BUTTON)) save();
+      if (ALLOW_SAVE && arduboy.pressed(Y_BUTTON) && arduboy.pressed(X_BUTTON)) save();
       if (first) {delay(100); first=0;} // allows for fine movement
       if (k>0 && k<5) move((k-1+angle)%4);
       if (k==5) { // 'A' key pressed... rorate view or reset level...
         angle++; if (angle==4) angle=0;
-        while(arduboy.pressed(A_BUTTON)) {delay(10); k++; if (k==200) return(0);}
+        while(arduboy.pressed(Y_BUTTON)) {delay(10); k++; if (k==200) return(0);}
       }
     }
     draw_map(x,y,z,angle);
     print(0,0," Solved! "); arduboy.display();
-    while(!arduboy.pressed(B_BUTTON));
+    while(!arduboy.pressed(X_BUTTON));
     level++; if (level==17) level=1;
   }
 }
